@@ -16,13 +16,15 @@ module.exports = {
   },
   plugins: [
     new UglifyJsPlugin({ sourceMap: true}),
+    new Dotenv({
+      path: path.resolve(__dirname, '.env')
+    }),
     new CleanWebpackPlugin(['dist']),
     new HtmlWebpackPlugin({
       title: 'Galactic Age',
       template: './src/index.html',
       inject: 'body'
-    }),
-    new Dotenv()
+    })
   ],
   module: {
     rules: [
