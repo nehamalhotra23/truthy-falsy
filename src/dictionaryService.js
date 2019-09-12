@@ -23,18 +23,18 @@ export class Dictionary{
 
   parseWordForType(search){
     return new Promise((resolve, reject) => {
-    let dictionary = new Dictionary();
-    search = search.replace("?", "");
-    let entry = dictionary.getWord(search);
+      let dictionary = new Dictionary();
+      search = search.replace("?", "");
+      let entry = dictionary.getWord(search);
 
-    entry.then(function(response){
-      const body = JSON.parse(response);
-      //const result = body.response.docs[0].headline.main;
-      let result = body[0].fl;
-      const regex = /[,]/;
-      if(regex.test(result)){
-        result = result.substring(0, result.indexOf(","));
-      }
+      entry.then(function(response){
+        const body = JSON.parse(response);
+        //const result = body.response.docs[0].headline.main;
+        let result = body[0].fl;
+        const regex = /[,]/;
+        if(regex.test(result)){
+          result = result.substring(0, result.indexOf(","));
+        }
         resolve(result);
         reject(undefined);
       });

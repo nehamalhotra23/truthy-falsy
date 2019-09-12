@@ -5,6 +5,7 @@ import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles.css';
 $(document).ready(function() {
+  let scoreCount = 0;
   $("#formOne").submit(function(event){
     event.preventDefault();
     const userInput = $("#userInput").val();
@@ -24,16 +25,19 @@ $(document).ready(function() {
     });
 
   });
-
-   $(".result").click(function(event){
-     const id = event.target.closest("p").id;
-     if(id === "0") {
-       $("#"+id).addClass("green");
+  
+  $(".result").click(function(event){
+    const id = event.target.closest("p").id;
+    if(id === "0") {
+      $("#"+id).addClass("green");
+      if (addScore()) {
+        scoreCount++;
+      }
     } else {
       $("#"+id).addClass("red");
     }
-
-   });
+    $("#score").text(scoreCount);
+  });
 
 
 });
@@ -52,4 +56,16 @@ function displayResults(headlinesObj){
 
 function makeResultDiv(headline, index){
   return `<p id="${index}" class="headline">${headline}<p>`;
+}
+
+function addScore() {
+  let isFirst = true;
+  $(".result").contents().each(function(){
+    if($(this).hasClass('red')) {
+      isFirst = false;
+    }
+
+  });
+  return isFirst;
+
 }

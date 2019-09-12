@@ -12,3 +12,8 @@
 .green {
   color: green;
 }
+h1 {
+  color: red;
+  font-size: 40px;
+  text-align: center;
+}
