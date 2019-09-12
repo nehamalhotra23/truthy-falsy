@@ -24,6 +24,7 @@ export class Dictionary{
   parseWordForType(search){
     return new Promise((resolve, reject) => {
     let dictionary = new Dictionary();
+    search = search.replace("?", "");
     let entry = dictionary.getWord(search);
 
     entry.then(function(response){
@@ -35,6 +36,7 @@ export class Dictionary{
         result = result.substring(0, result.indexOf(","));
       }
         resolve(result);
+        reject(undefined);
       });
     });
   }
