@@ -4,7 +4,8 @@
 .result {
   margin-top: 20px;
  border-style: groove;
-
+ font-weight: bold;
+ color: white;
 }
 .red{
   color: red;
@@ -16,4 +17,14 @@ h1 {
   color: red;
   font-size: 40px;
   text-align: center;
+}
+
+body {
+  background-image: url('./newspaper.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+#score {
+  color: white;
+  font-weight: bold;
 }
