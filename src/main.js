@@ -1,7 +1,9 @@
 import $ from 'jquery';
 import { Query, Headlines } from './newsService.js';
 import { Dictionary } from './dictionaryService.js';
-
+import 'bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './styles.css';
 $(document).ready(function() {
   $("#formOne").submit(function(event){
     event.preventDefault();
@@ -14,7 +16,7 @@ $(document).ready(function() {
       console.log("wordType:", wordTypes);
       wordTypes.then(function(response2){
         const mixedHeadlineObj = test.replaceWords();
-        $(".result").html(mixedHeadlineObj.headlines[0] + "<br>" + mixedHeadlineObj.headlines[1] + "<br>" + mixedHeadlineObj.headlines[2] + "<br>" +   mixedHeadlineObj.headlines[3] + "<br>" + mixedHeadlineObj.headlines[4]);
+        $(".result").html(displayResults(mixedHeadlineObj));
       });
 
     }, function(error) {
@@ -22,4 +24,32 @@ $(document).ready(function() {
     });
 
   });
+
+   $(".result").click(function(event){
+     const id = event.target.closest("p").id;
+     if(id === "0") {
+       $("#"+id).addClass("green");
+    } else {
+      $("#"+id).addClass("red");
+    }
+
+   });
+
+
 });
+
+function displayResults(headlinesObj){
+  let results = ``;
+  let arrayNum = [0, 1, 2, 3, 4];
+  for(let i=0; i< 5; i++){
+    const numIndex = Math.floor(Math.random()*arrayNum.length);
+    const index = arrayNum[numIndex];
+    results += makeResultDiv(headlinesObj.headlines[index], index);
+    arrayNum.splice(numIndex, 1);
+  }
+  return results;
+}
+
+function makeResultDiv(headline, index){
+  return `<p id="${index}" class="headline">${headline}<p>`;
+}
