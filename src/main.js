@@ -4,6 +4,7 @@ import { Dictionary } from './dictionaryService.js';
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles.css';
+var randomWords = require('random-words');
 $(document).ready(function() {
   let scoreCount = 0;
   $("#formOne").submit(function(event){
@@ -25,7 +26,7 @@ $(document).ready(function() {
     });
 
   });
-  
+
   $(".result").click(function(event){
     const id = event.target.closest("p").id;
     if(id === "0") {
@@ -38,7 +39,23 @@ $(document).ready(function() {
     }
     $("#score").text(scoreCount);
   });
+  $("#random").click(function(){
+     let search = randomWords();
+     let test = new Headlines();
+     let headline = test.pushHeadlines(search);
+     headline.then(function(response){
+       let wordTypes = test.wordTypeLookup();
+       console.log("wordType:", wordTypes);
+       wordTypes.then(function(response2){
+         const mixedHeadlineObj = test.replaceWords();
+         $(".result").html(displayResults(mixedHeadlineObj));
+       });
 
+     }, function(error) {
+       $(".result").text(error);
+     });
+
+  });
 
 });
 
